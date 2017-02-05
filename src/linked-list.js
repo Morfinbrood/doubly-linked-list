@@ -72,8 +72,6 @@ class LinkedList {
         this._head.data=null;
         this._tail.data=null;
         this.length--;
-        console.log(this._head);
-        console.log("this.length= ",this.length);
     }
 
     deleteAt(index) {
@@ -99,8 +97,6 @@ class LinkedList {
             else {
                 this._tail = null;
             }
-
-
         } // deleting last node
         else if (index == this.length) {
             this._tail = this._tail.prev;
@@ -124,9 +120,43 @@ class LinkedList {
         this.length--;
     }
 
-    reverse() {}
+    reverse() {
+        // var oldHead=this._head,
+        // currentNode = this._head,
+        // oldTail=this._tail,
+        // count=1;
+        // console.log("DOOO",this._head);
+        // this._tail=this._head;
+        // this._head=oldTail;
 
-    indexOf(data) {}
+        // while (count < this.length) {
+        //     currentNode = currentNode.next;
+        //     var oldPrev=currentNode.prev;
+        //     currentNode.prev=currentNode.next;
+        //     currentNode.next=oldPrev;
+        //     count++;
+        // };
+        // console.log("Posle",this._head);
+
+        // //  this.insertAt(1, data);
+
+
+    }
+
+    indexOf(data) {
+        var currentNode = this._head,
+        count = 0,
+        index = -1;
+
+        while (count < this.length) {
+            if(currentNode.data==data){
+                index=count;
+            }
+            currentNode = currentNode.next;
+            count++;
+        };
+        return index;
+    }
 }
 
 module.exports = LinkedList;
