@@ -28,15 +28,7 @@ class LinkedList {
     }
 
     at(index) {
-        var currentNode = this._head,
-        length = this._length,
-        count = 1;
 
-        while (count < position) {
-            currentNode = currentNode.next;
-            count++;
-        }
-        return currentNode;
     }
 
     insertAt(index, data) {
