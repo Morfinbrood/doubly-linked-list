@@ -54,6 +54,7 @@ class LinkedList {
         node.next=currentNode.next;
         currentNode.next=node;
         this.length++;
+        return this;
     }
 
     isEmpty() {
@@ -72,6 +73,7 @@ class LinkedList {
         this._head.data=null;
         this._tail.data=null;
         this.length--;
+        return this;
     }
 
     deleteAt(index) {
@@ -86,7 +88,7 @@ class LinkedList {
         if (index == 0) {
             this._head = currentNode.next;
             // next node exist
-            if (!this._head) {
+            if (this._head!=null) {
                 this.head.prev = null;
                 // next node not exist
             } 
@@ -114,6 +116,7 @@ class LinkedList {
             nodeToDelete = null;
         }
         this.length--;
+        return this;
     }
 
     reverse() {
@@ -146,6 +149,7 @@ class LinkedList {
         oldTailData=this._tail.data;
         this._head.data=oldTailData;
         this._tail.data=oldHeadData;
+        return this;
     }
 
     indexOf(data) {
