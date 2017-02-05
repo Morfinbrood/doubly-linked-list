@@ -53,6 +53,7 @@ class LinkedList {
         node.prev=currentNode;
         node.next=currentNode.next;
         currentNode.next=node;
+        this.length++;
     }
 
     isEmpty() {
@@ -64,7 +65,16 @@ class LinkedList {
         }
     }
 
-    clear() {}
+    clear() {
+        while (this.length > 1) {
+            this.deleteAt(this.length);
+        };
+        this._head.data=null;
+        this._tail.data=null;
+        this.length--;
+        console.log(this._head);
+        console.log("this.length= ",this.length);
+    }
 
     deleteAt(index) {
         var currentNode = this._head,
@@ -111,7 +121,7 @@ class LinkedList {
             deletedNode = nodeToDelete;
             nodeToDelete = null;
         }
-        this._length--;
+        this.length--;
     }
 
     reverse() {}
