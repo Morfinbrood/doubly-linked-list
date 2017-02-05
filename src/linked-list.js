@@ -16,7 +16,7 @@ class LinkedList {
         else {
             this._tail.next = node;
             node.prev=this._tail;
-            node._tail=node;
+            this._tail=node;
         }
         this.length++;
         return this;
@@ -32,20 +32,13 @@ class LinkedList {
 
     at(index) {
         var currentNode = this._head,
-        length = this._length,
-        count = 1,
-        message = {failure: 'Failure: non-existent node in this list.'};
-
-        if (length === 0 || index < 1 || index > length) {
-            throw new Error(message.failure);
-        }
+        lengthAt = this.length,
+        count = 0;
 
         while (count < index) {
             currentNode = currentNode.next;
             count++;
-        }
-
-        //console.log(currentNode.data);
+        };
         return currentNode.data;
     }
 
