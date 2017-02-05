@@ -82,12 +82,8 @@ class LinkedList {
         nodeToDelete = null,
         nextNode=null,
         deletedNode = null;
-        // not correct index
-        if (length == 0 || index < 1 || index > length) {
-            throw new Error('not correct index');
-        }
-        // for 1 index
-        if (index == 1) {
+        // for 0 index
+        if (index == 0) {
             this._head = currentNode.next;
             // next node exist
             if (!this._head) {
@@ -121,26 +117,35 @@ class LinkedList {
     }
 
     reverse() {
-        // var oldHead=this._head,
-        // currentNode = this._head,
-        // oldTail=this._tail,
-        // count=1;
-        // console.log("DOOO",this._head);
-        // this._tail=this._head;
-        // this._head=oldTail;
+        var currentNode = this._head,
+        length = this.length,
+        count=1,
+        arrayNewList=[];
 
-        // while (count < this.length) {
-        //     currentNode = currentNode.next;
-        //     var oldPrev=currentNode.prev;
-        //     currentNode.prev=currentNode.next;
-        //     currentNode.next=oldPrev;
-        //     count++;
-        // };
-        // console.log("Posle",this._head);
+        var oldHead=this._head,
+        oldTail=this._tail;
 
-        // //  this.insertAt(1, data);
+        while (count < this.length-1) {
+            currentNode = currentNode.next;
+            arrayNewList.push(currentNode.data);
+            count++;
+        };
 
+        arrayNewList.reverse();
+        var count=1,
+        i=0,
+        currentNode = this._head;
+        while (count < this.length-1) {
+            currentNode = currentNode.next;
+            currentNode.data=arrayNewList[i];
+            i++;
+            count++;
+        };
 
+        var oldHeadData=this._head.data,
+        oldTailData=this._tail.data;
+        this._head.data=oldTailData;
+        this._tail.data=oldHeadData;
     }
 
     indexOf(data) {
