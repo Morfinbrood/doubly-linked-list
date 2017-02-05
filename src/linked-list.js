@@ -32,7 +32,6 @@ class LinkedList {
 
     at(index) {
         var currentNode = this._head,
-        lengthAt = this.length,
         count = 0;
 
         while (count < index) {
@@ -43,8 +42,17 @@ class LinkedList {
     }
 
     insertAt(index, data) {
+        var currentNode = this._head,
+        count = 1;
 
-
+        while (count < index) {
+            currentNode = currentNode.next;
+            count++;
+        };
+        var node = new Node(data);
+        node.prev=currentNode;
+        node.next=currentNode.next;
+        currentNode.next=node;
     }
 
     isEmpty() {
@@ -62,9 +70,9 @@ class LinkedList {
         var currentNode = this._head,
         length = this.length,
         count = 1,
-        beforeNodeToDelete = null,
+        prevNode = null,
         nodeToDelete = null,
-        afterNodeToDelete=null,
+        nextNode=null,
         deletedNode = null;
         // not correct index
         if (length == 0 || index < 1 || index > length) {
@@ -94,12 +102,12 @@ class LinkedList {
                 count++;
             }
 
-            beforeNodeToDelete = currentNode.prev;
+            prevNode = currentNode.prev;
             nodeToDelete = currentNode;
-            afterNodeToDelete = currentNode.next;
+            nextNode = currentNode.next;
 
-            beforeNodeToDelete.next = afterNodeToDelete;
-            afterNodeToDelete.prev = beforeNodeToDelete;
+            prevNode.next = nextNode;
+            nextNode.prev = prevNode;
             deletedNode = nodeToDelete;
             nodeToDelete = null;
         }
