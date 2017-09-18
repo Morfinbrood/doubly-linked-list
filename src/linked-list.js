@@ -8,7 +8,7 @@ class LinkedList {
   }
 
   append(data) {
-    let node = new Node(data);
+    const node = new Node(data);
     if (this.length == 0) {
       this._head = node;
       this._tail = node;
@@ -29,25 +29,22 @@ class LinkedList {
     return this._tail.data;
   }
 
-  at(index) {
+  nodByInd(index) {
     let currentNode = this._head;
     let count = 0;
-
     while (count < index) {
       currentNode = currentNode.next;
       count++;
     };
-    return currentNode.data;
+    return currentNode;
+  }
+
+  at(index) {
+    return this.nodByInd(index).data;
   }
 
   insertAt(index, data) {
-    let currentNode = this._head;
-    let count = 1;
-
-    while (count < index) {
-      currentNode = currentNode.next;
-      count++;
-    };
+    let currentNode = this.nodByInd(index - 1);
     let node = new Node(data);
     node.prev = currentNode;
     node.next = currentNode.next;
