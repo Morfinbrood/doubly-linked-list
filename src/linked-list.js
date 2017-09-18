@@ -43,7 +43,7 @@ class LinkedList {
     return this.nodByInd(index).data;
   }
 
-  insertAt(index, data) {
+  insertAt(index, data) { // TO DO проверить как работает при индеске 0 и =длине массива
     const currentNode = this.nodByInd(index - 1);
     const node = new Node(data);
     node.prev = currentNode;
@@ -61,51 +61,41 @@ class LinkedList {
   }
 
   clear() {
-    while (this.length > 1)
-      this.deleteAt(this.length);
-    this._head.data = null;
-    this._tail.data = null;
-    this.length--;
+    const length = this.length;
+    for (var i = length - 1; i >= 0; i--) {
+      this.deleteAt(i);
+    }
     return this;
   }
 
   deleteAt(index) {
-    let currentNode = this._head;
-    let length = this.length;
-    let count = 1;
-    let prevNode = null;
-    let nodeToDelete = null;
-    let nextNode = null;
-    let deletedNode = null;
-    // for 0 index
+    let currentNode = this.nodByInd(index);
+    let prevNod;
+    let nextNod;
+    if (index == 0 && this.length == 1) {
+      this._head.data = null;
+      this._tail.data = null;
+      currentNode = null;
+    } else
     if (index == 0) {
-      this._head = currentNode.next;
-      // next node exist
-      if (this._head != null)
-        this.head.prev = null;
-      // next node not exist
-      else
-        this._tail = null;
-    } // deleting last node
-    else
-    if (index == this.length) {
-      this._tail = this._tail.prev;
-      this._tail.next = null;
-      // deleting middle node
+      console.log("IF 2");
+      nextNod = currentNode.next;
+      nextNod.prev = null;
+      this._head = nextNod;
+      currentNode = null;
+    } else
+    if (index == this.length - 1) {
+      prevNod = currentNode.prev;
+      prevNod.next = null;
+      this._tail = prevNod;
+      currentNode = null;
     } else {
-      while (count < index) {
-        currentNode = currentNode.next;
-        count++;
-      }
-      prevNode = currentNode.prev;
-      nodeToDelete = currentNode;
-      nextNode = currentNode.next;
-      prevNode.next = nextNode;
-      nextNode.prev = prevNode;
-      deletedNode = nodeToDelete;
-      nodeToDelete = null;
+      nextNod = currentNode.next;
+      prevNod = currentNode.prev;
+      prevNod.next = nextNod;
+      nextNod.prev = prevNod;
+      currentNode = null;
     }
-
     this.length--;
     return this;
   }
