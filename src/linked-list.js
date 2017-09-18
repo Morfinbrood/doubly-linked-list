@@ -44,8 +44,8 @@ class LinkedList {
   }
 
   insertAt(index, data) {
-    let currentNode = this.nodByInd(index - 1);
-    let node = new Node(data);
+    const currentNode = this.nodByInd(index - 1);
+    const node = new Node(data);
     node.prev = currentNode;
     node.next = currentNode.next;
     currentNode.next = node;
