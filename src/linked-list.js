@@ -35,7 +35,7 @@ class LinkedList {
     while (count < index) {
       currentNode = currentNode.next;
       count++;
-    };
+    }
     return currentNode;
   }
 
@@ -83,7 +83,7 @@ class LinkedList {
   }
 
   deleteAt(index) {
-    if (this.length < 0 || index < 0 || index >= this.length) 
+    if (this.length < 0 || index < 0 || index >= this.length)
       throw new Error("DeleteAt// can't delete nod with index= " + index);
     const currentNode = this.nodByInd(index);
     const prevNod = currentNode.prev;
@@ -91,11 +91,11 @@ class LinkedList {
     if (index == 0 && this.length == 1) { //когда удаляемый нод является единств в списке
       this._head.data = null;
     } else
-    if (index == 0) {                     //когда удаляем 1-ый нод но он не единств в списке
+    if (index == 0) { //когда удаляем 1-ый нод но он не единств в списке
       nextNod.prev = null;
       this._head = nextNod;
     } else
-    if (index == this.length - 1) {       //когда удаляем последний нод в списке
+    if (index == this.length - 1) { //когда удаляем последний нод в списке
       prevNod.next = null;
       this._tail = prevNod;
     } else {
@@ -108,32 +108,16 @@ class LinkedList {
 
   reverse() {
     const length = this.length;
-    let currentNode = this._head;
-    let count = 1;
-    let arrayNewList = [];
-    let oldHead = this._head;
-    let oldTail = this._tail;
-    //создаем массив дат всех нодов
-    for (let i = 0; i < length - 1; i++) {
-      currentNode = this.at(i);
-      arrayNewList.push(currentNode);
+    //offset -переменная смещения к центру списка.  Math.abs(length / 2) это место середины относительно которой свапаем данные нодов
+    //для нечетн 0 1 2 3 4  свапаются 0 и 4 ; 1 и 3 ;  2 свапается сама с собой
+    //для четных 0 1 2 3   0 и 3 ; 1 и 2.
+    for (let offset = 0; offset < Math.abs(length / 2); offset++) {
+      let nod1 = this.nodByInd(offset);
+      let nod2 = this.nodByInd(length - 1 - offset);
+      let temp = nod1.data;
+      nod1.data = nod2.data;
+      nod2.data = temp;
     }
-
-    arrayNewList.reverse();
-    count = 1;
-    let i = 0;
-    currentNode = this._head;
-    while (count < length - 1) {
-      currentNode = currentNode.next;
-      currentNode.data = arrayNewList[i];
-      i++;
-      count++;
-    };
-
-    const oldHeadData = this._head.data;
-    const oldTailData = this._tail.data;
-    this._head.data = oldTailData;
-    this._tail.data = oldHeadData;
     return this;
   }
 
@@ -141,13 +125,14 @@ class LinkedList {
     let currentNode = this._head;
     let count = 0;
     let index = -1;
-
     while (count < this.length) {
-      if (currentNode.data == data)
+      if (currentNode.data == data) {
         index = count;
+        break;
+      }
       currentNode = currentNode.next;
       count++;
-    };
+    }
     return index;
   }
 }
