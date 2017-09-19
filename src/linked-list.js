@@ -47,7 +47,7 @@ class LinkedList {
     // на случай если попытаются сделать вставку на позицию большую чем длины списка
     // т.е. вставить при длине 0 на 0 позицию можно. но нельзя вставить на позицию 1.
     if (index > this.length)
-      throw new Error("can't insert in this position");
+      throw new Error("insertAT// can't insert nod in position = ", index);
     let node = new Node(data);
     if (index == 0) {
       node.next = this._head;
@@ -83,31 +83,24 @@ class LinkedList {
   }
 
   deleteAt(index) {
-    let currentNode = this.nodByInd(index);
-    let prevNod;
-    let nextNod;
-    if (index == 0 && this.length == 1) {
+    if (this.length < 0 || index < 0 || index >= this.length) 
+      throw new Error("DeleteAt// can't delete nod with index= " + index);
+    const currentNode = this.nodByInd(index);
+    const prevNod = currentNode.prev;
+    const nextNod = currentNode.next;
+    if (index == 0 && this.length == 1) { //когда удаляемый нод является единств в списке
       this._head.data = null;
-      this._tail.data = null;
-      currentNode = null;
     } else
-    if (index == 0) {
-      nextNod = currentNode.next;
+    if (index == 0) {                     //когда удаляем 1-ый нод но он не единств в списке
       nextNod.prev = null;
       this._head = nextNod;
-      currentNode = null;
     } else
-    if (index == this.length - 1) {
-      prevNod = currentNode.prev;
+    if (index == this.length - 1) {       //когда удаляем последний нод в списке
       prevNod.next = null;
       this._tail = prevNod;
-      currentNode = null;
     } else {
-      nextNod = currentNode.next;
-      prevNod = currentNode.prev;
       prevNod.next = nextNod;
       nextNod.prev = prevNod;
-      currentNode = null;
     }
     this.length--;
     return this;
