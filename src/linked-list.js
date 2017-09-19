@@ -62,9 +62,8 @@ class LinkedList {
 
   clear() {
     const length = this.length;
-    for (var i = length - 1; i >= 0; i--) {
+    for (var i = length - 1; i >= 0; i--)
       this.deleteAt(i);
-    }
     return this;
   }
 
@@ -78,7 +77,6 @@ class LinkedList {
       currentNode = null;
     } else
     if (index == 0) {
-      console.log("IF 2");
       nextNod = currentNode.next;
       nextNod.prev = null;
       this._head = nextNod;
@@ -101,33 +99,31 @@ class LinkedList {
   }
 
   reverse() {
+    const length = this.length;
     let currentNode = this._head;
-    let length = this.length;
     let count = 1;
     let arrayNewList = [];
-
     let oldHead = this._head;
     let oldTail = this._tail;
-
-    while (count < this.length - 1) {
-      currentNode = currentNode.next;
-      arrayNewList.push(currentNode.data);
-      count++;
-    };
+    //создаем массив дат всех нодов
+    for (let i = 0; i < length - 1; i++) {
+      currentNode=this.at(i);
+      arrayNewList.push(currentNode);
+    }
 
     arrayNewList.reverse();
     count = 1;
     let i = 0;
     currentNode = this._head;
-    while (count < this.length - 1) {
+    while (count < length - 1) {
       currentNode = currentNode.next;
       currentNode.data = arrayNewList[i];
       i++;
       count++;
     };
 
-    let oldHeadData = this._head.data;
-    let oldTailData = this._tail.data;
+    const oldHeadData = this._head.data;
+    const oldTailData = this._tail.data;
     this._head.data = oldTailData;
     this._tail.data = oldHeadData;
     return this;
