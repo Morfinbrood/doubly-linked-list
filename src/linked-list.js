@@ -43,12 +43,28 @@ class LinkedList {
     return this.nodByInd(index).data;
   }
 
-  insertAt(index, data) { // TO DO проверить как работает при индеске 0 и =длине массива
-    const currentNode = this.nodByInd(index - 1);
-    const node = new Node(data);
-    node.prev = currentNode;
-    node.next = currentNode.next;
-    currentNode.next = node;
+  insertAt(index, data) {
+    // на случай если попытаются сделать вставку на позицию большую чем длины списка
+    // т.е. вставить при длине 0 на 0 позицию можно. но нельзя вставить на позицию 1.
+    if (index > this.length)
+      throw new Error("can't insert in this position");
+    let node = new Node(data);
+    if (index == 0) {
+      node.next = this._head;
+      this._head.prev = node;
+      this._head = node;
+    } else {
+      if (index == this.length) {
+        this.append(data)
+      } else {
+        let currentNode = this.nodByInd(index); // тот что сейчас находится на заменяемой позиции и будет сдвинут право
+        let prevNod = currentNode.prev; // тот после котого мы осуществляем вставку
+        node.prev = prevNod;
+        node.next = currentNode;
+        prevNod.next = node;
+        currentNode.prev = node;
+      }
+    }
     this.length++;
     return this;
   }
@@ -107,7 +123,7 @@ class LinkedList {
     let oldTail = this._tail;
     //создаем массив дат всех нодов
     for (let i = 0; i < length - 1; i++) {
-      currentNode=this.at(i);
+      currentNode = this.at(i);
       arrayNewList.push(currentNode);
     }
 
